@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
 
+        font-family: "Roboto Mono", monospace;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    nav{
+        display: flex;
+        align-items: center;
+    }
+    button{
+        height: 1.5rem; width: 4rem;
+        margin: 0 5px;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+</style>
+<body>
+    <div style="display: flex; align-items: center; padding: 15px; background-color: #fbeede;">
+        <img src="./data/icon.jpg" alt="icon" style="height: 10rem; width: 10rem;">
+        <div>
+            <h1 style="padding: 0 5px;">DONT DO MUCH, DO SMART, DO EFFECTIVELY</h1>
+            <p style="font-size: 13.5px; padding: 0 5px 10px 5px;">       
+                Thời gian là 1 thứ quý báu và bạn có rất nhiều việc để mà quan tâm, 
+                đừng quá lãng phí thời gian để làm 1 thứ gì đó hãy làm nó 1 cách thông minh và hiệu quả
+            </p>
+            <nav>
+                <button>BASE</button>
+                <button>CLOTH</button>
+                <button>ASSET</button>
+                <button>HAIR</button>
+                <button>TEXTURE</button>
+                <button>SHADER</button>
+            </nav>
+        </div>  
+    </div>
+    <div style="width: 100%; height: 70vh;">
+        <iframe src="./pages/base.html" frameborder="0" height="100%" width="100%"></iframe>
+    </div>
+</body>
+</html>
