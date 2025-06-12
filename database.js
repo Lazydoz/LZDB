@@ -52,17 +52,25 @@ db.serialize(() => {
             image TEXT,
             source TEXT,
             download TEXT
-        )
+        );
     `);
 
     //insert(6214004,"Skimmia","https://booth.pximg.net/af3e0f0e-13f8-436b-b90b-e3a2ed57ca12/i/6214004/dd3cee5c-c52b-4bf4-b2ef-7fa3c15fae47_base_resized.jpg","https://booth.pm/ja/items/6214004","https://drive.google.com/file/d/1Z4q49o_NgT7T6xHmAFfQuBYLD0I9CEwr/view?usp=sharing");
 
-    // XEM KIEU JSON
-    db.all("SELECT * FROM base", [], (err, rows) => {
+    // XEM THONG TIN BANG
+    db.all("PRAGMA table_info(base)", [], (err, rows) => {
         console.table(rows);
     });
     
-
+    // XEM DU LIEU TRONG BANG 
+    db.all("SELECT * FROM base", [], (err,rows) => {
+        if (err){
+            console.error(err.message);
+        }
+        else {
+            console.log(rows);
+        }
+    });
 });
 
 /*----- DONG KET NOI TOI CO SO DU LIEU -----*/
