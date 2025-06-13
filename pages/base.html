@@ -20,7 +20,7 @@
 
             <label class="form-label px-2" for="id">Base ID</label>
 
-            <input type="number" id="id" class="form-control" placeholder="Base ID" required>
+            <input type="number" id="base_id" class="form-control" placeholder="Base ID" required>
 
           </div>
 
@@ -28,7 +28,7 @@
 
             <label class="form-label px-2" for="id">Booth ID</label>
 
-            <input type="number" id="id" class="form-control" placeholder="Booth ID" required>
+            <input type="number" id="booth_id" class="form-control" placeholder="Booth ID" required>
 
           </div>
 
@@ -44,7 +44,7 @@
 
             <label class="form-label px-2" for="img">Image</label>
 
-            <input type="text" id="img" class="form-control" placeholder="link" required>
+            <input type="text" id="image" class="form-control" placeholder="link" required>
 
           </div>
 
@@ -139,8 +139,8 @@
                 <td>${b.download  || ''}<td>
 
                 <td>
-                  <button class="btn btn-warning btn-sm" onclick="editProduct('${b.base_id}')">Sửa</button>
-                  <button class="btn btn-danger btn-sm" onclick="deleteProduct('${b.base_id}')">Xóa</button>
+                  <button class="btn btn-warning btn-sm" onclick="editBase('${b.base_id}')">Sửa</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteBase('${b.base_id}')">Xóa</button>
                 <td>
 
               </tr>
@@ -152,10 +152,76 @@
       }
       loadbase();
 
+      // HAM DAT LAI 
       function resetForm() {
         document.getElementById('product-form').reset();
         document.getElementById('submit-btn').textContent = 'Thêm mới';
       }
+
+      // HAM EDIT
+      function editBase(id) {
+        fetch('/api/base/' + id)
+        .then(res => res.json())
+        .then(b => {
+          document.getElementById('base_id').value = b.base_id;
+          document.getElementById('booth_id').value = b.booth_id;
+          document.getElementById('name').value = b.name;
+          document.getElementById('image').value = b.image;
+          document.getElementById('source').value = b.source || '';
+          document.getElementById('download').value = b.download || '';
+          document.getElementById('submit-btn').textContent = 'Cập nhật';
+        })
+      }
+
+      // HAM XOA
+      function deleteBase(id) {
+        if (confirm(' XOA SAN PHAM NAY')) {
+          fetch('/api/base/' + id ,{method: 'DELETE'})
+          .then(res =>  res.json())
+          .then(() => loadbase())
+        }
+      }
+
+      document.getElementById('product-form').onsubmit = (e) => {
+      e.preventDefault();
+      
+      const data = {
+        base_id: document.getElementById('base_id').value,
+        booth_id: document.getElementById('booth_id').value,
+        name: document.getElementById('name').value,
+        image: document.getElementById('image').value,
+        source: document.getElementById('source').value,
+        download: document.getElementById('download').value
+      };
+
+      if (id) {
+        // Sửa sản phẩm
+        fetch('/api/base/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(() => {
+          resetForm();
+          loadbase();
+        });
+      }
+
+      else {
+        // Thêm sản phẩm
+        fetch('/api/base', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(() => {
+          resetForm();
+          loadbase();
+        });
+      }
+    };
     </script>
 </body>
 </html>
