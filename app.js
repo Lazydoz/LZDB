@@ -1,12 +1,14 @@
 const experss = require('express');
 const path = require('path');
 const open = require('open').default;
-const endpoint = require('./script/endpoint.js');
+
+
+const endpoint_base = require('./script/endpoint_base.js');
 
 const app = experss();
 
 app.use(experss);
-app.use(endpoint);
+app.use('/api/base',endpoint_base);
 
 
 // xu ly cac thu muc tinh
