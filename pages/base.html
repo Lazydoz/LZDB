@@ -108,6 +108,16 @@
 
     </div>
     
-    <script src="../script/base.js"></script>
+    <script src="../script/function.js"></script>
+    <script>
+      createCrudTable({
+        apiEndpoint: '/api/base',
+        mainId: 'base_id',
+        fields: ['base_id', 'booth_id', 'base_name', 'image', 'source', 'download'],
+        tableSelector: '#base-table',
+        formSelector: '#product-form',
+        submitBtnId: 'submit-btn'
+      });
+    </script>
 </body>
 </html>
