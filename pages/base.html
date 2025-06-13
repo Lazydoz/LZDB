@@ -18,9 +18,17 @@
           
           <div class="col-md-2">
 
+            <label class="form-label px-2" for="id">Base ID</label>
+
+            <input type="number" id="id" class="form-control" placeholder="Base ID" required>
+
+          </div>
+
+          <div class="col-md-2">
+
             <label class="form-label px-2" for="id">Booth ID</label>
 
-            <input type="number" id="id" class="form-control" placeholder="ID" required>
+            <input type="number" id="id" class="form-control" placeholder="Booth ID" required>
 
           </div>
 
@@ -60,7 +68,7 @@
 
             <button type="submit" class="btn btn-success" id="submit-btn">Thêm mới</button>
 
-            <button type="button" class="btn btn-secondary ms-2">Làm mới</button>
+            <button type="button" class="btn btn-secondary ms-2" onclick="resetForm()">Làm mới</button>
 
           </div>
 
@@ -72,7 +80,7 @@
 
         <div class="input-group">
 
-            <input type="text" class="form-control" placeholder="ID search">
+            <input type="text" class="form-control" placeholder="Booth ID search">
 
             <button class="btn btn-danger btn-lg">Search</button>
 
@@ -82,21 +90,72 @@
 
     <div class="container">
 
-        <table class="table">
+        <table class="table" id="base-table">
 
             <thead>
 
                 <tr>
 
-                    <th>Booth ID</th> <th>Name</th> <th>Image</th> <th>Source</th> <th>Download</th> <th>Action</th>
+                    <th>Base ID</th> <th>Booth ID</th> <th>Name</th> <th>Image</th> <th>Source</th> <th>Download</th> <th>Action</th>
 
                 </tr>
 
             </thead>
 
+            <tbody></tbody>
+
         </table>
 
     </div>
+    
+    <script>
 
+      // day du lieu cua base len dong
+      function loadbase(){
+
+        fetch('api/base')
+        .then(res => res.json)
+        .then(base => {
+
+          const appear = document.querySelector('#base-table tbody');
+
+          appear.innerHTML = ``;
+
+          base.forEach(b => {
+
+            tbody.innerHTML += `
+              <tr>
+
+                <td>${b.base_id}<td>
+
+                <td>${b.booth_id}<td>
+
+                <td>${b.name}<td>
+
+                <td><img src="${b.image}" alt="${b.name}" style="width: 3rem; height: 3rem; object-fit: cover;"><td>
+
+                <td>${b.source || ''}<td>
+
+                <td>${b.download  || ''}<td>
+
+                <td>
+                  <button class="btn btn-warning btn-sm" onclick="editProduct('${b.base_id}')">Sửa</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteProduct('${b.base_id}')">Xóa</button>
+                <td>
+
+              </tr>
+            `;
+          });
+
+        })
+
+      }
+      loadbase();
+
+      function resetForm() {
+        document.getElementById('product-form').reset();
+        document.getElementById('submit-btn').textContent = 'Thêm mới';
+      }
+    </script>
 </body>
 </html>
