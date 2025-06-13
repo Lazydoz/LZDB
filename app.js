@@ -7,7 +7,7 @@ const endpoint_base = require('./script/endpoint_base.js');
 
 const app = express();
 
-app.use(express);
+app.use(express.json());
 app.use('/api/base',endpoint_base);
 
 
